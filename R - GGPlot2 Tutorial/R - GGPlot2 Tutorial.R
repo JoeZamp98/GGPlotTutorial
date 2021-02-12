@@ -43,5 +43,22 @@ g1 + labs(title = "County Population vs. Area (Zoomed)", subtitle = "For Midwest
 
 ggplot(midwest, aes(x=area, y=poptotal)) + geom_point(col='steelblue', size=3) + geom_smooth(method='lm', col='firebrick') + coord_cartesian(xlim=c(0,0.1), ylim=c(0,1000000)) + labs(title = "County Population vs. Area (Zoomed)", subtitle = "For Midwestern Counties") + xlab('Area') + ylab("Population")
 
+##COLORIZING BASED ON ANOTHER VARIABLE
 
-                                                      
+g2 <- ggplot(midwest, aes(x=area, y=poptotal)) + geom_point(aes(col=state), size=3) + geom_smooth(method='lm', col='navy') + coord_cartesian(xlim=c(0,0.1), ylim=c(0,1000000)) + labs(title= "County Population vs. Area", subtitle = "Colorized by State") + xlab('County Area (mi^2)') + ylab('County Population')
+
+#Set Color Palette
+
+install.packages('RColorBrewer')
+require(RColorBrewer)
+
+install.packages('viridis')
+require(viridis)
+
+v_color_scale <- viridis(5) 
+
+library(RColorBrewer)
+head(brewer.pal.info, 10)
+
+g2 + scale_color_brewer(palette = 'Spectral')
+
